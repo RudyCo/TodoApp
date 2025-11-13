@@ -1,11 +1,35 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
 {
-  "image": "mcr.microsoft.com/dotnet/sdk:8.0",
-  "extensions": [
-    "ms-dotnettools.csharp"
-  ],
-  "postCreateCommand": "chmod +x .devcontainer/init.sh && .devcontainer/init.sh",
-  "forwardPorts": [
-    5000,
-    5001
-  ]
+  "name": ".NET Aspire",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/dotnet:9.0",
+  "features": {
+    // "ghcr.io/devcontainers/features/dotnet:2": { "version": "10.0" },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/powershell:1": {}
+  },
+
+  "hostRequirements": {
+    "cpus": 8,
+    "memory": "32gb",
+    "storage": "64gb"
+  },
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "dotnet restore",
+  "onCreateCommand": "curl -sSL https://aspire.dev/install.sh | bash",
+  "postStartCommand": "dotnet dev-certs https --trust",
+  "forwardPorts": [5000, 5001],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "davidanson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        // "microsoft-aspire.aspire-vscode",
+        "ms-dotnettools.csdevkit",
+        "vscode-icons-team.vscode-icons"
+      ]
+    }
+  }
 }
